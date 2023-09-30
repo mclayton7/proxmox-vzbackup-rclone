@@ -2,16 +2,17 @@
 # ./vzbackup-rclone.sh rehydrate YYYY/MM/DD file_name_encrypted.bin
 
 ############ /START CONFIG
-drive="gd-backup_crypt"
-dumpdir="/mnt/pve/pvebackups01/dump" # Set this to where your vzdump files are stored
+drive="onedrive"
+remote_folder="backup/pve"
+dumpdir="/var/lib/vz/dump" # Set this to where your vzdump files are stored
 MAX_AGE=3 # This is the age in days to keep local backup copies. Local backups older than this are deleted.
-MAX_CLOUD_AGE=31 # This is the age in days to keep cloud backup copies. Cloud backups older than this are deleted
+MAX_CLOUD_AGE=3 # This is the age in days to keep cloud backup copies. Cloud backups older than this are deleted
 ############ /END CONFIG
 
 _bdir="$dumpdir"
 rcloneroot="$dumpdir/rclone"
 timepath="$(date +%Y-%m-%d)"
-rclonedir="$rcloneroot/$timepath"
+rclonedir="$rcloneroot/$remote_folder/$timepath"
 COMMAND=${1}
 rehydrate=${2} #enter the date you want to rehydrate in the following format: YYYY/MM/DD
 if [ ! -z "${3}" ];then
